@@ -256,12 +256,13 @@ Class Reservation{
   public function getDateDebut(){return $this->dateDebut;}
   public function getNbJours(){return $this->nbJours;}
   public function getStatut(){return $this->statut;}
+  
   public function setVehicule($vehicule){$this->vehicule=$vehicule;}
   public function setClient($client){$this->client=$client;}
   public function setDateDebut($dateDebut){$this->dateDebut=$dateDebut;}
   public function setNbJours($nbJours){$this->nbJours=$nbJours;}
   public function setStatut($statut){$this->statut=$statut;}
-  
+
     public function calculerMontant(){
       return $this->vehicule->calculerPrix($this->nbJours);
     }
@@ -274,4 +275,31 @@ Class Reservation{
 
 
   }
+
+
+//execution
+
+$voiture = new Voiture(1, "57-A-87388", "Toyota", "Corolla", 50, true, 4, "Automatique");
+$moto = new Moto(2, "1-W-11111", "Yamaha", "R1", 30, true, 1000);
+$camion = new Camion(3, "57-A-57575", "Volvo", "FH16", 100, true, 20);
+
+$client = new Client("YOUSSEF", "ERR", "YSFER@gmail.com", 101);
+
+
+$agence = new Agence("Agence Centrale", "Paris");
+
+$agence->ajouterVehicule($voiture);
+$agence->ajouterVehicule($moto);
+$agence->ajouterVehicule($camion);
+
+$dateDebut = new DateTime('2023-10-01');
+$reservation = $agence->faireReservation($client, $voiture, $dateDebut, 5);
+
+echo "Réservation effectuée :\n";
+echo "Client : " . $client->getNom() . " " . $client->getPrenom() . "\n";
+echo "Véhicule : " . $voiture->getMarque() . " " . $voiture->getModele() . "\n";
+echo "Date de début : " . $reservation->getDateDebut()->format('Y-m-d') . "\n";
+echo "Nombre de jours : " . $reservation->getNbJours() . "\n";
+echo "Montant total : " . $reservation->calculerMontant() . "€\n";
+echo "Statut de la réservation : " . $reservation->getStatut() . "\n";
 
