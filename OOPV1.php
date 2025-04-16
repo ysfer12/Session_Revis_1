@@ -57,7 +57,7 @@ abstract Class Vehicule{
 }
 
 
-Class Voiture extends Vehicule{
+Class Voiture extends Vehicule implements ReservableInterface{
   private $nbPortes;
   private $transmission;
   public function __construct($nbPortes, $transmission){
@@ -81,7 +81,7 @@ Class Voiture extends Vehicule{
   
 }
 
-Class Moto extends Vehicule{
+Class Moto extends Vehicule implements ReservableInterface{
   private $cylindree;
   public function __construct($cylindree){
     Parent::__construct();
@@ -103,7 +103,7 @@ Class Moto extends Vehicule{
   }
 }
 
-Class Camion extends Vehicule{
+Class Camion extends Vehicule implements ReservableInterface{
   private $capaciteTonnage;
   public function __construct($capaciteTonnage){
     Parent::__construct();
