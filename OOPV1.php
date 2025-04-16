@@ -279,7 +279,7 @@ Class Reservation{
 
 //execution
 
-$voiture = new Voiture(1, "57-A-87388", "Toyota", "Corolla", 50, true, 4, "Automatique");
+$voiture = new Voiture(1, "57-A-87388", "Bmw", "420d", 50, true, 4, "Automatique");
 $moto = new Moto(2, "1-W-11111", "Yamaha", "R1", 30, true, 1000);
 $camion = new Camion(3, "57-A-57575", "Volvo", "FH16", 100, true, 20);
 
