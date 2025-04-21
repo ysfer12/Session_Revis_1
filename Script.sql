@@ -104,6 +104,12 @@ INNER JOIN missions ON offres.id = missions.offre_id
 INNER JOIN evaluations ON missions.id = evaluations.mission_id
 WHERE evaluations.note<=3
 --18--Afficher le top 5 des freelances les mieux notés (note moyenne).
-SELECT utilisateurs.*, AVG(evaluations.note) as note_moyenne
+ SELECT utilisateurs.*, AVG(evaluations.note) as note_moyenne
 FROM utilisateurs
 INNER JOIN offres ON utilisateurs.id=offres.freelance_id
+INNER JOIN missions ON offres.id = missions.offre_id
+INNER JOIN evaluations ON missions.id = evaluations.mission_id
+GROUP BY utilisateurs.id
+HAVING AVG(evaluations.note)
+ORDER BY note_moyenne DESC
+LIMIT 5
