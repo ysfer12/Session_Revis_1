@@ -33,6 +33,24 @@ SELECT projets.budget, projets.statut, COUNT(offres.id)as nombre__totaloffres FR
 INNER JOIN offres on projets.id=offres.projet_id
 WHERE projets.statut='ouvert'
 
+--7--Lister les offres envoyées par des freelances dont le tarif horaire est inférieur à 100 MAD.
+SELECT 
+    offres.id AS offre_id,
+    offres.projet_id,
+    offres.freelance_id,
+    utilisateurs.nom AS nom_freelance,
+    profils.tarif_horaire,
+    offres.prix_propose,
+    offres.delai_propose,
+    offres.message,
+    offres.date_envoi
+FROM offres
+JOIN utilisateurs ON offres.freelance_id = utilisateurs.id
+JOIN profils ON utilisateurs.id = profils.utilisateur_id
+WHERE utilisateurs.role = 'freelance'
+  AND profils.tarif_horaire < 100;
+
+
 
 --8--Afficher les projets qui ont reçu au moins 3 offres.
 SELECT projets.*, COUNT(offres.id) as nombre_offres FROM projets
@@ -113,3 +131,12 @@ GROUP BY utilisateurs.id
 HAVING AVG(evaluations.note)
 ORDER BY note_moyenne DESC
 LIMIT 5
+
+--19--Afficher les projets sans offres reçues.
+
+
+SELECT projets.*, COUNT(offres.id) as nombre_offres FROM projets
+INNER JOIN offres on projets.id=offres.projet_id
+WHERE projets.statut='ouvert' 
+GROUP BY projets.id
+HAVING COUNT(offres.id) = 0
